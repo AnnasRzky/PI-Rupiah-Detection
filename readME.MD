@@ -6,5 +6,5 @@ deactivate
 https://universe.roboflow.com/indonesia-rupiah-currency-dataset/indonesia-rupiah-detection/dataset/3
 
 Jangan Lupa tambahkan folder result --> predict
-                             uploads
+                             ,uploads
 Pada folder static
