@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupiah Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <iframe id="streamFrame" style="display:none; width:100%; height:480px;" frameborder="0"></iframe>
+    <div class="animated-bg">
+        <div class="neon-line top"></div>
+        <div class="neon-line bottom"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Rupiah Detection Using YOLO & OCR</h1>
+            <p class="subtitle">
+                Sistem otomatis untuk mendeteksi dan mengenali uang kertas Rupiah Indonesia 
+                menggunakan teknologi YOLO v8 untuk deteksi objek dan OCR untuk pembacaan teks.
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Panel Kontrol -->
+            <div class="control-panel">
+                <h2 class="panel-title">Control Panel</h2>
+        
+                <div class="panel-flex">
+                    <!-- Kiri: Informasi Model -->
+                    <div class="model-info">
+                        <h3>Model Information</h3>
+                        <div class="model-details">
+                            <p><strong>Model :</strong> md_model.pt</p>
+                            <p><strong>Framework :</strong> YOLO v8</p>
+                            <p><strong>Classes :</strong> Indonesian Rupiah Notes</p>
+                        </div>
+                    </div>
+        
+                    <!-- Kanan: Tombol -->
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="realTimeBtn">
+                            <span>🎥</span> Real Time Detection
+                        </button>
+                        <button class="btn btn-danger" id="stopCameraBtn" style="display: none;">
+                            <span>⛔</span> Turn Off Camera
+                        </button>
+                        <button class="btn btn-secondary" id="uploadBtn">
+                            <span>📁</span> Upload Images
+                        </button>
+                    </div>
+                </div>
+        
+                <!-- Drag & Drop Area -->
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📷</div>
+                    <p>Drag & drop gambar uang kertas di sini</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">
+                        atau klik untuk memilih file
+                    </p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+            </div>
+        
+            <!-- Area Hasil Deteksi di bawah -->
+            <div class="detection-area">
+                <h2 class="panel-title">Detection Results</h2>
+                
+                <div class="webcam-container" id="webcamContainer" style="display: none;">
+                    <img class="webcam-video" id="webcamVideo" />
+                </div>
+        
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <img class="preview-image" id="previewImage" alt="Preview">
+                    <canvas class="detection-overlay-static" id="detectionCanvasStatic"></canvas>
+                </div>
+        
+                <div class="detection-results" id="detectionResults">
+                    <div id="yoloResultBox" class="result-box">
+                        <h3>📦 YOLO Result</h3>
+                        <p>Belum ada hasil.</p>
+                    </div>
+                    <div id="ocrResultBox" class="result-box">
+                        <h3>🔤 OCR Result</h3>
+                        <p>Belum ada hasil.</p>
+                    </div>
+                    <div id="finalResultBox" class="result-box">
+                        <h3>✅ Final Result</h3>
+                        <p>Belum ada hasil.</p>
+                    </div>
+                </div>
+                
+                <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
+            </div>
+        </div>    
+    </div>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
