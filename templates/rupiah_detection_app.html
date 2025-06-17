@@ -69,32 +69,57 @@
             <!-- Area Hasil Deteksi di bawah -->
             <div class="detection-area">
                 <h2 class="panel-title">Detection Results</h2>
-                
-                <div class="webcam-container" id="webcamContainer" style="display: none;">
-                    <img class="webcam-video" id="webcamVideo" />
-                </div>
-        
-                <div class="preview-container" id="previewContainer" style="display: none;">
-                    <img class="preview-image" id="previewImage" alt="Preview">
-                    <canvas class="detection-overlay-static" id="detectionCanvasStatic"></canvas>
-                </div>
-        
-                <div class="detection-results" id="detectionResults">
-                    <div id="yoloResultBox" class="result-box">
-                        <h3>📦 YOLO Result</h3>
-                        <p>Belum ada hasil.</p>
+
+                <div class="result-layout">
+                    <!-- Kiri: Kamera atau Gambar dalam Frame -->
+                    <div class="left-preview bordered-box">
+                        <div class="webcam-container" id="webcamContainer" style="display: none;">
+                            <img class="webcam-video" id="webcamVideo" />
+                        </div>
+                        <div class="preview-container" id="previewContainer" style="display: none;">
+                            <img class="preview-image" id="previewImage" alt="Preview">
+                            <canvas class="detection-overlay-static" id="detectionCanvasStatic"></canvas>
+                        </div>
+                        <p class="preview-instruction">Preview Cam</p>
                     </div>
-                    <div id="ocrResultBox" class="result-box">
-                        <h3>🔤 OCR Result</h3>
-                        <p>Belum ada hasil.</p>
+
+                    <!-- Kanan: Hasil Deteksi -->
+                    <div class="right-result">
+                        <div id="yoloResultBox" class="result-box">
+                            <h3>📦 YOLO Result</h3>
+                            {% if yolo_result %}
+                                <p>Label: <strong>{{ yolo_result.label }}</strong></p>
+                                <p>Confidence: {{ yolo_result.confidence }}%</p>
+                            {% else %}
+                                <p>Belum ada hasil.</p>
+                            {% endif %}
+                        </div>
+
+                        <div id="ocrResultBox" class="result-box">
+                            <h3>🔤 OCR Result</h3>
+                            {% if ocr_result and ocr_result.detections %}
+                                <ul>
+                                    {% for det in ocr_result.detections %}
+                                        <li><strong>{{ det.class }}</strong> ({{ det.confidence }}): {{ det.text }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Belum ada hasil.</p>
+                            {% endif %}
+                        </div>
+
+                        <div id="finalResultBox" class="result-box">
+                            <h3>✅ Final Result</h3>
+                            {% if final_result %}
+                                <p><strong>{{ final_result }}</strong></p>
+                            {% else %}
+                                <p>Belum ada hasil.</p>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div id="finalResultBox" class="result-box">
-                        <h3>✅ Final Result</h3>
-                        <p>Belum ada hasil.</p>
-                    </div>
+                    <div id="loadingSpinner" style="display:none;">Loading...</div>
+                    <div id="detectionResults"></div>
                 </div>
-                
-                <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
             </div>
         </div>    
     </div>

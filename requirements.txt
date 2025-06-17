@@ -1,3 +1,7 @@
 ultralytics
 cv
 easyocr
+numpy
+python-Levenshtein
+flask
+werkzeug
