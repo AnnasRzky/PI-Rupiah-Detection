@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         reader.readAsDataURL(file);
 
-        fileInput.value = ""; // reset input supaya bisa upload file yang sama lagi
+        fileInput.value = "";
     }
 
     function updateDetectionResults(data) {

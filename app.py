@@ -17,10 +17,6 @@ is_running = False  # Flag untuk loop real-time
 # =======================
 @app.route('/')
 def index():
-    # Hapus hasil lama setiap reload
-    results_dir = 'static/results'
-    if os.path.exists(results_dir):
-        shutil.rmtree(results_dir)
     return render_template('rupiah_detection_app.html')
 
 

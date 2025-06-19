@@ -11,7 +11,7 @@ from fuzzywuzzy import process
 model = YOLO('models/md_model(full).pt')  
 
 # Inisialisasi EasyOCR reader 
-reader = easyocr.Reader(['en'], gpu=True)
+reader = easyocr.Reader(['en', 'id'], gpu=True)
 
 # Daftar nominal uang (angka + teks)
 nominal_list = [
@@ -29,7 +29,7 @@ def fuzzy_match(text, choices=nominal_list):
     Mencocokkan teks hasil OCR dengan daftar nominal uang menggunakan fuzzy matching.
     """
     match, score = process.extractOne(text.lower(), choices)
-    return match if score >= 50 else text  # bisa kamu adjust threshold-nya
+    return match if score >= 50 else text 
 
 def detect_image(file):
     img = Image.open(file).convert('RGB')
@@ -64,7 +64,6 @@ def detect_image(file):
             'bbox': [x1, y1, x2, y2]
         })
 
-        # Agregasi untuk JSON response
         yolo_labels.append(model.names[cls])
         yolo_confidences.append(f"{conf:.2f}")
         ocr_labels.append(ocr_text)
@@ -153,7 +152,7 @@ def detect_webcam_frame(frame):
             'ocr_result': {
                 'labels': ocr_labels
             },
-            'final_result': final_results,  # LIST, bukan string
+            'final_result': final_results,
             'boxes': boxes
         }
 
@@ -168,3 +167,4 @@ def detect_webcam_frame(frame):
             'final_result': [],
             'boxes': []
         }
+    
